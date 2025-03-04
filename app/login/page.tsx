@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signIn } from "../utils/auth";
 
 export default function Login() {
   return (
@@ -23,7 +24,10 @@ export default function Login() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="flex flex-col gap-y-4">
+            <form action={async () => {
+              "use server";
+              await signIn();
+            }} className="flex flex-col gap-y-4">
               <div className="flex flex-col gap-y-2  ">
                 <Label> Email </Label>
                 <Input placeholder="crazyharsh@invoxify.com" />
