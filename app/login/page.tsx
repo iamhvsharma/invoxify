@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signIn } from "../utils/auth";
+import { auth, signIn } from "../utils/auth";
 import { SubmitButton } from "@/components/Custom/SubmitButton";
 import { requireUser } from "../utils/hooks";
 import { redirect } from "next/navigation";
 
 export default async function Login() {
-  const session = await requireUser();
+  const session = await auth();
   if (session?.user) {
     redirect("/dashboard");
   }
