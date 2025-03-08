@@ -48,7 +48,7 @@ export default async function Login() {
                   placeholder="crazyharsh@invoxify.com"
                 />
               </div>
-              <SubmitButton />
+              <SubmitButton text="Login" />
             </form>
           </CardContent>
         </Card>
