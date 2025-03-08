@@ -16,6 +16,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "../utils/auth";
+import { prisma } from "../utils/db";
+import { redirect } from "next/navigation";
+
+// Function to check wheather the user is onboarded or not
+async function getUser(userId: string) {
+  const data = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      firstName: true,
+      lastName: true,
+      address: true,
+    },
+  });
+
+  if(!data?.firstName || !data.lastName || !data.address){
+    redirect("/onboarding")
+  }
+}
 
 export default async function DashboardLayout({
   children,
@@ -24,6 +44,10 @@ export default async function DashboardLayout({
 }) {
   // Protecting route
   const session = await requireUser();
+
+  // Calling function to check wheather the user is onboarded or not
+  const data = await getUser(session.user?.id as string)
+
   return (
     <>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -81,11 +105,13 @@ export default async function DashboardLayout({
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <form className="w-full" action={async () =>{
-                      "use server"
-                      await signOut();
-
-                    }}>
+                    <form
+                      className="w-full"
+                      action={async () => {
+                        "use server";
+                        await signOut();
+                      }}
+                    >
                       <button className="w-full text-left">Log out</button>
                     </form>
                   </DropdownMenuItem>
@@ -93,9 +119,7 @@ export default async function DashboardLayout({
               </DropdownMenu>
             </div>
           </header>
-          <main>
-            {children}
-          </main>
+          <main>{children}</main>
         </div>
       </div>
     </>
