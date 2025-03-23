@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { auth, signIn } from "../utils/auth";
 import { SubmitButton } from "@/components/Custom/SubmitButton";
-import { requireUser } from "../utils/hooks";
+// import { requireUser } from "../utils/hooks";
 import { redirect } from "next/navigation";
 
 export default async function Login() {

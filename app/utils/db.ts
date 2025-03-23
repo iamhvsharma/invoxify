@@ -1,9 +1,9 @@
 // lib/prisma.ts
 import { PrismaClient } from "@prisma/client";
 
-const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
+// const prismaClientSingleton = () => {
+//   return new PrismaClient();
+// };
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 

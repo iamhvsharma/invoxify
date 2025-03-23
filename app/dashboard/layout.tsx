@@ -46,7 +46,8 @@ export default async function DashboardLayout({
   const session = await requireUser();
 
   // Calling function to check wheather the user is onboarded or not
-  const data = await getUser(session.user?.id as string)
+  // const data = 
+  await getUser(session.user?.id as string)
 
   return (
     <>
