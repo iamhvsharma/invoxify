@@ -8,7 +8,7 @@ import { onboardingSchema } from "./utils/zodSchemas";
 import { prisma } from "./utils/db";
 import { redirect } from "next/navigation";
 
-export async function onboardUser(prevState: any, formData: FormData) {
+export async function onboardUser(/* prevState: any, */ formData: FormData) {
   const session = await requireUser();
 
   const submission = parseWithZod(formData, {
@@ -19,7 +19,8 @@ export async function onboardUser(prevState: any, formData: FormData) {
     return submission.reply();
   }
 
-  const data = await prisma.user.update({
+  // const data =
+  await prisma.user.update({
     where: {
       id: session.user?.id,
     },
@@ -30,6 +31,5 @@ export async function onboardUser(prevState: any, formData: FormData) {
     },
   });
 
-  return redirect("/dashboard")
+  return redirect("/dashboard");
 }
-
