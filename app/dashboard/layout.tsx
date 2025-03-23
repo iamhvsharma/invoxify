@@ -119,7 +119,7 @@ export default async function DashboardLayout({
               </DropdownMenu>
             </div>
           </header>
-          <main>{children}</main>
+          <main className="px-10 py-10">{children}</main>
         </div>
       </div>
     </>
