@@ -2,13 +2,16 @@
 
 "use server";
 import { parseWithZod } from "@conform-to/zod";
-
 import { requireUser } from "./utils/hooks";
 import { onboardingSchema } from "./utils/zodSchemas";
 import { prisma } from "./utils/db";
 import { redirect } from "next/navigation";
+import { SubmissionResult } from "@conform-to/react";
 
-export async function onboardUser(/* prevState: any, */ formData: FormData) {
+export async function onboardUser(
+  state: SubmissionResult<string[]> | undefined,
+  formData: FormData
+) {
   const session = await requireUser();
 
   const submission = parseWithZod(formData, {
@@ -19,7 +22,6 @@ export async function onboardUser(/* prevState: any, */ formData: FormData) {
     return submission.reply();
   }
 
-  // const data =
   await prisma.user.update({
     where: {
       id: session.user?.id,
